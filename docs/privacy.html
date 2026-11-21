@@ -1,0 +1,74 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Política de Privacidade – Livelo Auto</title>
+<style>
+  body { font-family: system-ui, -apple-system, Segoe UI, Roboto, sans-serif; line-height: 1.6; max-width: 760px; margin: 0 auto; padding: 24px 16px; color: #222; }
+  h1 { font-size: 1.6rem; }
+  h2 { font-size: 1.15rem; margin-top: 1.8rem; }
+  code { background: #f3f3f3; padding: 1px 4px; border-radius: 4px; }
+</style>
+</head>
+<body>
+
+<h1>Política de Privacidade – Livelo Auto</h1>
+<p><strong>Última atualização:</strong> 21 de novembro de 2026</p>
+
+<p>O <strong>Livelo Auto</strong> é uma extensão para Chrome e Edge que ativa o link de pontos da Livelo quando você entra em lojas parceiras. Este documento explica quais dados a extensão trata, para que serve e onde ficam armazenados.</p>
+
+<p>Este projeto é independente e <strong>não é afiliado, patrocinado ou mantido pela Livelo</strong>.</p>
+
+<h2>1. Resumo</h2>
+<ul>
+  <li>Não há servidor próprio do desenvolvedor. A extensão não envia dados para o autor nem para terceiros de análise (sem analytics, sem anúncios, sem rastreadores).</li>
+  <li>Os dados ficam no seu navegador, em <code>chrome.storage</code>.</li>
+  <li>O único envio de dados é para a API da própria Livelo (<code>apis.pontoslivelo.com.br</code>) e para o site <code>livelo.com.br</code>, quando necessário para gerar o link de pontos.</li>
+  <li>Não vendemos nem compartilhamos dados com terceiros.</li>
+</ul>
+
+<h2>2. Dados que a extensão trata</h2>
+<ul>
+  <li><strong>CPF:</strong> informado por você no popup. É usado para pedir à Livelo o link personalizado de algumas lojas (por exemplo, Mercado Livre). É salvo localmente e enviado somente à API da Livelo, no momento de gerar o link.</li>
+  <li><strong>Endereços (URLs) das páginas que você visita:</strong> a extensão observa a navegação principal para saber se a loja atual é parceira da Livelo. Essa verificação é feita localmente, com a lista de parceiros. Nenhum histórico de navegação é guardado nem enviado.</li>
+  <li><strong>Cookies do site da Livelo:</strong> a extensão verifica apenas se existe o cookie de sessão de login (nome <code>KEYCLOAK_IDENTITY</code>), para mostrar se você está logado. O valor do cookie não é lido para uso nem enviado a lugar nenhum.</li>
+  <li><strong>Preferências e cache:</strong> modo de exibição (automático ou banner), lojas desativadas, links gerados, catálogo de parceiros, contadores de diagnóstico e o identificador de pixel de rastreio da Livelo (<code>gtm_ga_ids</code>), copiado do armazenamento local do site da Livelo para montar o link.</li>
+</ul>
+
+<h2>3. Como os dados são usados</h2>
+<ul>
+  <li>Montar o link de pontos da loja que você está visitando.</li>
+  <li>Mostrar o banner de ativação e o status no popup.</li>
+  <li>Controlar os intervalos entre requisições à Livelo, para evitar bloqueio do seu IP pelo serviço.</li>
+</ul>
+
+<h2>4. Armazenamento e retenção</h2>
+<p>Todos os dados ficam no seu navegador (<code>chrome.storage.local</code> e <code>chrome.storage.session</code>). Os links gerados, que incluem o CPF no cache, permanecem até serem substituídos ou até você remover a extensão. Para apagar seu CPF, limpe o campo no popup e remova a extensão para apagar o restante.</p>
+
+<h2>5. Compartilhamento</h2>
+<p>Não compartilhamos dados com terceiros. Os únicos destinos de rede são a API da Livelo (<code>apis.pontoslivelo.com.br</code>) e o site <code>livelo.com.br</code>, ambos controlados pela Livelo, conforme a política de privacidade da Livelo.</p>
+
+<h2>6. Permissões usadas</h2>
+<ul>
+  <li><strong>storage / alarms:</strong> guardar preferências e cache localmente e agendar atualizações do catálogo de parceiros.</li>
+  <li><strong>webNavigation / webRequest:</strong> detectar a loja que você está visitando e ativar o link no momento certo. Não bloqueia nem altera requisições.</li>
+  <li><strong>scripting:</strong> exibir o banner de ativação na página da loja parceira.</li>
+  <li><strong>cookies:</strong> verificar se você está logado na Livelo (somente o nome do cookie de sessão).</li>
+  <li><strong>Acesso a todos os sites (https://*/*):</strong> necessário porque as lojas parceiras são muitas e mudam; a extensão só age quando a loja está no catálogo da Livelo.</li>
+</ul>
+
+<h2>7. Seus direitos</h2>
+<p>Você pode, a qualquer momento, apagar o CPF pelo popup, desativar a extensão ou removê-la do navegador, o que apaga os dados armazenados localmente. Como os dados não estão em servidores do desenvolvedor, não há cópias a solicitar. Para dúvidas sobre dados mantidos pela própria Livelo, consulte a política de privacidade da Livelo.</p>
+
+<h2>8. Crianças</h2>
+<p>A extensão não se destina a menores de 18 anos e não coleta conscientemente dados de crianças.</p>
+
+<h2>9. Alterações</h2>
+<p>Se esta política mudar, a nova versão será publicada nesta página com a data de atualização.</p>
+
+<h2>10. Contato</h2>
+<p>Dúvidas ou solicitações: <a href="https://github.com/giulio426/auto-livelo-chrome-extension/issues">abra uma issue no repositório do projeto</a>.</p>
+
+</body>
+</html>
