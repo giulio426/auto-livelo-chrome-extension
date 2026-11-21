@@ -1,0 +1,41 @@
+{
+  "manifest_version": 3,
+  "name": "Livelo Auto",
+  "version": "0.1.0",
+  "description": "Ativa automaticamente o link Livelo ao entrar em lojas parceiras para você acumular pontos.",
+  "permissions": [
+    "storage",
+    "alarms",
+    "webNavigation",
+    "scripting",
+    "cookies",
+    "webRequest"
+  ],
+  "host_permissions": [
+    "https://*/*"
+  ],
+  "background": {
+    "service_worker": "background.js"
+  },
+  "content_scripts": [
+    {
+      "matches": [
+        "https://livelo.com.br/*",
+        "https://www.livelo.com.br/*"
+      ],
+      "js": [
+        "livelo.js"
+      ],
+      "run_at": "document_idle"
+    }
+  ],
+  "action": {
+    "default_popup": "popup.html",
+    "default_title": "Livelo Auto"
+  },
+  "icons": {
+    "16": "icons/16.png",
+    "48": "icons/48.png",
+    "128": "icons/128.png"
+  }
+}

@@ -1,0 +1,163 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Livelo Auto</title>
+<style>
+  :root{
+    color-scheme:dark;
+    --bg:#16161b;
+    --surface:#202027;
+    --surface-2:#2a2a33;
+    --border:#3a3a45;
+    --text:#f3f3f6;
+    --muted:#a6a6b2;
+    --accent:#c4005f;
+    --accent-hover:#ff0a8c;
+    --on-accent:#ffffff;
+    --link:#ff5aa5;
+    --ok:#3ddc84;   --ok-bg:rgba(61,220,132,.15);
+    --warn:#ffb020; --warn-bg:rgba(255,176,32,.15);
+    --bad:#ff5c6c;  --bad-bg:rgba(255,92,108,.15);
+    --neutral-bg:#2f2f39;
+    --focus:#8ab4ff;
+  }
+  @media (prefers-color-scheme:light){
+    :root{
+      color-scheme:light;
+      --bg:#f5f5f8; --surface:#ffffff; --surface-2:#eeeef3; --border:#dcdce4;
+      --text:#1b1b22; --muted:#5d5d6a; --accent:#c4005f; --accent-hover:#ff0a8c; --on-accent:#ffffff;
+      --link:#c4005f;
+      --ok:#17794a; --ok-bg:rgba(23,121,74,.12);
+      --warn:#8a5300; --warn-bg:rgba(230,150,0,.16);
+      --bad:#b3213a; --bad-bg:rgba(179,33,58,.12);
+      --neutral-bg:#e6e6ed; --focus:#2456c7;
+    }
+  }
+  *{box-sizing:border-box}
+  [hidden]{display:none !important}
+  html,body{margin:0}
+  body{width:340px;padding:12px;font:13px/1.4 system-ui,sans-serif;background:var(--bg);color:var(--text)}
+  main{display:flex;flex-direction:column;gap:12px}
+  h1,h2{margin:0;font-size:15px;font-weight:700;overflow-wrap:anywhere}
+  p{margin:0}
+  .muted{color:var(--muted)}
+  .text-warn{color:var(--warn);font-weight:600}
+  .eyebrow{font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.06em;color:var(--muted)}
+  .field-label{display:block;font-size:12px;font-weight:600;color:var(--muted)}
+  .card{background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:12px;display:flex;flex-direction:column;gap:10px}
+  .card.muted{color:var(--muted)}
+  .top{display:flex;align-items:center;justify-content:space-between;gap:8px}
+  .head,.actions{display:flex;align-items:center;flex-wrap:wrap;gap:8px}
+  .head h2{flex:1;min-width:0}
+  .row{display:flex;align-items:center;justify-content:space-between;gap:8px;cursor:pointer}
+  .how{display:flex;flex-direction:column;gap:8px}
+  .hint{color:var(--muted)}
+
+  .tag{display:inline-flex;align-items:center;gap:6px;padding:3px 9px;border-radius:999px;font-size:12px;font-weight:600;white-space:nowrap;background:var(--neutral-bg);color:var(--muted)}
+  .tag.ok{color:var(--ok);background:var(--ok-bg)}
+  .tag.warn{color:var(--warn);background:var(--warn-bg)}
+  .tag.bad{color:var(--bad);background:var(--bad-bg)}
+  .tag.pink{color:var(--on-accent);background:var(--accent)}
+  .dot{width:8px;height:8px;border-radius:50%;background:currentColor;flex:none}
+
+  .btn{min-height:32px;padding:0 12px;border:1px solid var(--border);border-radius:8px;background:var(--surface-2);color:var(--text);font:inherit;font-weight:600;cursor:pointer}
+  .btn:hover{border-color:var(--accent)}
+  .btn.sm{min-height:28px;padding:0 10px;font-size:12px}
+  .btn:disabled{opacity:.5;cursor:default;border-color:var(--border)}
+  .link{color:var(--link);font-weight:600;text-decoration:none}
+  .link:hover{text-decoration:underline}
+
+  .coupon{display:flex;align-items:center;gap:8px;padding:6px 6px 6px 10px;background:var(--surface-2);border:1px dashed var(--border);border-radius:8px}
+  .coupon code{flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font:600 13px ui-monospace,Consolas,monospace;letter-spacing:.04em}
+
+  .seg{display:grid;grid-template-columns:1fr 1fr;gap:3px;padding:3px;background:var(--surface-2);border-radius:9px}
+  .seg label{position:relative;cursor:pointer}
+  .seg input{position:absolute;inset:0;margin:0;opacity:0;cursor:pointer}
+  .seg span{display:flex;align-items:center;justify-content:center;min-height:30px;border-radius:7px;font-weight:600;color:var(--muted)}
+  .seg input:checked+span{background:var(--accent);color:var(--on-accent)}
+
+  .switch{position:relative;width:36px;height:20px;flex:none}
+  .switch input{position:absolute;inset:0;z-index:1;margin:0;opacity:0;cursor:pointer}
+  .track{position:absolute;inset:0;border-radius:999px;background:var(--border);transition:background .15s}
+  .track::after{content:"";position:absolute;top:2px;left:2px;width:16px;height:16px;border-radius:50%;background:#fff;transition:transform .15s}
+  .switch input:checked+.track{background:var(--accent)}
+  .switch input:checked+.track::after{transform:translateX(16px)}
+
+  input:focus-visible+span,input:focus-visible+.track,.btn:focus-visible,.link:focus-visible,summary:focus-visible,input[type=text]:focus-visible{outline:2px solid var(--focus);outline-offset:2px}
+  input[type=text]{width:100%;min-height:32px;padding:6px 10px;border:1px solid var(--border);border-radius:8px;background:var(--surface-2);color:var(--text);font:inherit;letter-spacing:.04em}
+
+  details{background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:10px 12px;color:var(--muted)}
+  summary{min-height:28px;display:flex;align-items:center;font-weight:600;cursor:pointer;color:var(--text)}
+  details[open] summary{margin-bottom:8px}
+  details>*:not(summary){margin-top:8px}
+
+  @media (prefers-reduced-motion:reduce){*{transition:none !important;animation:none !important}}
+</style>
+</head>
+<body>
+<main>
+  <header class="top">
+    <h1>Livelo Auto</h1>
+    <div class="head">
+      <span id="pill" class="tag"><span class="dot"></span><span id="pillText"></span></span>
+      <button id="login" class="btn sm" type="button" hidden>Entrar</button>
+    </div>
+  </header>
+
+  <section id="store" class="card" hidden>
+    <div class="head">
+      <h2 id="storeName"></h2>
+      <span id="pts" class="tag" hidden></span>
+    </div>
+    <div class="how">
+      <span class="eyebrow">Como comprar</span>
+      <span id="badge" class="tag"></span>
+      <div id="couponBox" class="coupon" hidden>
+        <code id="couponCode"></code>
+        <button id="copy" class="btn sm" type="button">Copiar</button>
+      </div>
+      <p id="hint" class="hint"></p>
+      <p id="cpfHint" class="text-warn" hidden>Salve seu CPF abaixo para ativar esta loja.</p>
+    </div>
+    <div class="head">
+      <span id="why" class="tag" hidden></span>
+    </div>
+    <div class="actions">
+      <a id="page" class="link" target="_blank" rel="noopener" hidden>Ver na Livelo</a>
+      <button id="reactivate" class="btn sm" type="button" hidden>Reativar aqui</button>
+    </div>
+    <label class="row">
+      <span>Ativar automaticamente nesta loja</span>
+      <span class="switch"><input id="off" type="checkbox"><span class="track"></span></span>
+    </label>
+  </section>
+
+  <section id="nostore" class="card muted" hidden>
+    <p>Esta loja não está no catálogo da Livelo.</p>
+    <p id="noWhy" class="hint" hidden></p>
+  </section>
+
+  <section class="card">
+    <span id="modeLabel" class="field-label">Modo</span>
+    <div class="seg" role="radiogroup" aria-labelledby="modeLabel">
+      <label><input type="radio" name="mode" value="auto"><span>Automático</span></label>
+      <label><input type="radio" name="mode" value="banner"><span>Só avisar</span></label>
+    </div>
+    <label class="field-label" for="cpf">CPF — necessário em lojas com jornada CPF, como Mercado Livre</label>
+    <input id="cpf" type="text" inputmode="numeric" autocomplete="off" placeholder="000.000.000-00">
+  </section>
+
+  <details id="diag">
+    <summary>Diagnóstico</summary>
+    <p id="info"></p>
+    <p id="api"></p>
+    <p id="failed" hidden></p>
+    <button id="refresh" class="btn" type="button">Atualizar lista</button>
+    <p id="msg" role="status"></p>
+  </details>
+</main>
+<script src="popup.js"></script>
+</body>
+</html>
