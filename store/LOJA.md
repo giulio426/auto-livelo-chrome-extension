@@ -56,10 +56,11 @@ Aviso: projeto independente, não afiliado nem patrocinado pela Livelo.
 
 **Ícone:** `icons/128.png` (já no pacote).
 
-**Capturas de tela:** envie de 1 a 5, em 1280×800 (ou 640×400). Sugestões:
-1. Banner de ativação sobre uma loja parceira.
-2. Popup com o modo automático e o campo de CPF.
-3. Banner com cupom copiável.
+**Capturas de tela:** prontas em `store/screenshots/` (1280×800):
+1. `01-popup.png`: popup com status, modo e CPF de exemplo (123.456.789-09).
+2. `02-banner.png`: banner de ativação sobre uma página de exemplo ("Loja Exemplo").
+
+Foram geradas a partir do código real da extensão (`popup.html`, `popup.js`, `banner.js`) com dados de exemplo, não em uma loja real. Se preferir capturas de uma loja parceira real, troque os arquivos.
 
 **Imagem promocional pequena** (opcional): 440×280.
 
